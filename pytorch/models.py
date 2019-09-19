@@ -57,7 +57,11 @@ class Net(nn.Module):
 
 if __name__ == "__main__":
     # Create a 1-image batch to test the Net
-    image = Variable(torch.randn(1, 1, 224, 224))
+    
+    if torch.cuda.is_available():
+        image = Variable(torch.randn(1, 1, 224, 224).cuda())
+    else:
+        image = Variable(torch.randn(1, 1, 224, 224))
     net = Net()
     # To verify output size, add print(x.size()) at each step in forward
     net.forward(image)
